@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="HSL">
+    <meta name="author" content="Wesley Tsai, Mlytics">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mlytics VAST Demo · CST stream demo account</title>
+    <link href="https://vjs.fusioncdn.com/7.21.4/video-js.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+    <script src="https://vjs.fusioncdn.com/7.21.4/video.min.js"></script>
+    <!-- Configuration might be different along with Stream. -->
+    <script src="https://sdkjs.fusioncdn.com/mlysdk.js"></script>
+    <script src="https://jsdelivr.fusioncdn.com/npm/@mlytics/p2sp-sdk@latest/bundle/driver.min.js"></script>
+    <script src="https://jsdelivr.fusioncdn.com/npm/@mlytics/p2sp-sdk@latest/bundle/peripheral/player/videojs-hls.min.js"></script>
+<!doctype html>
+<body>
+  <div style="width: 800px; height: 640px">
+    <video id="video" class="video-js vjs-theme-fantasy" style="width: 800px; height: 640px; background-color: black;"></video>
+  </div>
+  <script>
+    const driver = mlysdk.driver.initialize();
+    const src = "https://.m3u8";
+    const video = document.getElementById('video')
+    const adapter = driver.extensions.VideojsHlsPlayerPlugin.create(video, {
+      autoplay: true,
+      controls: true,
+      sources: [{
+        src,
+        type: 'application/vnd.apple.mpegurl'
+      }]
+    })
+    const videojsPlayer = adapter.player
+  </script>
+</body>
+</html>
