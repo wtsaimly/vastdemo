@@ -14,6 +14,14 @@
     <script src="https://sdkjs.fusioncdn.com/mlysdk.js"></script>
     <script src="https://jsdelivr.fusioncdn.com/npm/@mlytics/p2sp-sdk@latest/bundle/driver.min.js"></script>
     <script src="https://jsdelivr.fusioncdn.com/npm/@mlytics/p2sp-sdk@latest/bundle/peripheral/player/videojs-hls.min.js"></script>
+    <!-- Load dependent scripts and CSS for VAST -->
+    <link href="https://googleads.github.io/videojs-ima/node_modules/videojs-contrib-ads/dist/videojs.ads.css" rel="stylesheet">
+    <link href="https://googleads.github.io/videojs-ima/dist/videojs.ima.css" rel="stylesheet">
+    <script src="https://googleads.github.io/videojs-ima/node_modules/videojs-contrib-ads/dist/videojs.ads.min.js"></script>
+    <script src="https://googleads.github.io/videojs-ima/dist/videojs.ima.js"></script>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="https://adservice.google.com/adsid/integrator.js?domain=googleads.github.io"></script>
+    <script src="https://s0.2mdn.net/instream/video/client.js"></script>
 <!doctype html>
 <body>
   <div style="width: 800px; height: 640px">
@@ -21,7 +29,7 @@
   </div>
   <script>
     const driver = mlysdk.driver.initialize();
-    const src = "https://.m3u8";
+    const src = "";
     const video = document.getElementById('video')
     const adapter = driver.extensions.VideojsHlsPlayerPlugin.create(video, {
       autoplay: true,
@@ -31,7 +39,19 @@
         type: 'application/vnd.apple.mpegurl'
       }]
     })
-    const videojsPlayer = adapter.player
+
+    var vast_options = {
+      id: 'video',
+      adTagUrl: 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
+      'iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&' +
+      'impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&' +
+      'cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&' +
+      'vid=short_onecue&correlator='
+    };
+
+    const videojsPlayer = adapter.player;
+    videojsPlayer.ima(vast_options);
+
   </script>
 </body>
 </html>
